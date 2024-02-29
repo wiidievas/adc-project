@@ -30,7 +30,7 @@ public class ComputationResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response hello() {
 		LOG.fine("Saying hello!!");
-		return Response.ok().entity("Hello human! I hope you are having a fine day.").build();
+		return Response.ok().entity("Hello apdc-pei-2324 person! I hope you are having a fine day.").build();
 	}
 	
 	@GET
