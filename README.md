@@ -1,4 +1,4 @@
-Um primeir Projeto in APDC-PEI 23/24
+Um primeiro Projeto in APDC-PEI 23/24
 Roadmap:
 Fazer fork do projeto fornecido para uma cópia vossa
 
