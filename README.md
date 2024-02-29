@@ -5,5 +5,6 @@ Fazer fork do projeto fornecido para uma cópia vossa
 Projeto:
 https://github.com/henriquejoaolopesdomingos/apdc-pei-2324.git
 
-Clonar esse projeto para o vosso workspace no eclipse.
-Criar depois o projeto no eclipse (Maven)
+** Clonar esse projeto para o vosso workspace no eclipse.
+
+** Criar depois o projeto no eclipse (Maven)
