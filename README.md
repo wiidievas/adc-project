@@ -24,5 +24,7 @@ Depois regressam à linha de comando:
 Fazem build com o Maven (com o vosso command-line mvn)
 Se tudo estiver ok, devem ter a aplicação local
 
-Deve dar para testar o deployment local
+Deve dar para testar o deployment local:
+
+Experimentem apontar para localhosy, porto 8080
 
