@@ -1,8 +1,9 @@
 **APDC 2023/2024**
 
 **Um primeiro Projeto in APDC-PEI 23/24**
+
 Roadmap:
-Fazer fork do projeto fornecido para uma cópia vossa
+* Fazer fork do projeto fornecido para uma cópia vossa
 
 **Projeto: GitHub Rep - verificar como obter o URL para clonarem para o ambiente local:**
 URL: https://github.com/henriquejoaolopesdomingos/apdc-pei-2324.git
