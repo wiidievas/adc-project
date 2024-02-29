@@ -28,3 +28,6 @@ Deve dar para testar o deployment local:
 
 Experimentem apontar para localhost, porto 8080 [http://localhost:8080/]
 
+A seguir já verão como fazer deploy para o Google Cloud Platform (Google App Engne)
+
+
