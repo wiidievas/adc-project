@@ -1,4 +1,4 @@
-APDC 2023/2024
+**APDC 2023/2024
 
 Um primeiro Projeto in APDC-PEI 23/24
 Roadmap:
@@ -8,7 +8,7 @@ Projeto:
 URL: https://github.com/henriquejoaolopesdomingos/apdc-pei-2324.git
 
 * Clonar o projeto para o vosso workspace no eclipse (descubram onde é o workplace na vossa instalação do Eclipse)
-* Ex: git clone "url"
+* Ex: git clone <git url para download do projeto>
 * Criar depois o projeto no eclipse (Maven)
 
 Passos seguintes:
