@@ -26,5 +26,5 @@ Se tudo estiver ok, devem ter a aplicação local
 
 Deve dar para testar o deployment local:
 
-Experimentem apontar para localhost, porto 8080 (http://localhost:8080/)
+Experimentem apontar para localhost, porto 8080 [http://localhost:8080/]
 
