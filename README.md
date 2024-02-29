@@ -3,7 +3,7 @@ Roadmap:
 Fazer fork do projeto fornecido para uma cópia vossa
 
 Projeto:
-https://github.com/henriquejoaolopesdomingos/apdc-pei-2324.git
+URL: https://github.com/henriquejoaolopesdomingos/apdc-pei-2324.git
 
 * Clonar o projeto para o vosso workspace no eclipse (descubram onde é o workplace na vossa instalação do Eclipse)
 * Ex: git clone "url"
