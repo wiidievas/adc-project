@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<h3>Here, you can change "any" method </h3>
+<p>None of these are required to proceed (except the other user's id)</p>
+<body>
+    <h1>Enter Info About the Attributes you want to change.</h1>
+    <form action="../../rest/changeattributes" method="post" id="alterationsForm" onsubmit="submitForm(this)">
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_name">Other user's ID:</label>
+            <input style="display: table-column;" type="text" name="user_name" id="user_name" required/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_email">Their Email:</label>
+            <input style="display: table-column;" type="text" name="user_email" id="user_email"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_profile">Their Name:</label>
+            <input style="display: table-column;" type="text" name="user_profile" id="user_profile"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_role">Their role:</label>
+            <select style="display: table-column;" type="text" name="user_role" id="user_role">
+                <option value=""></option>
+                <option value="USER">USER</option>
+                <option value="GBO">GBO</option>
+                <option value="GA">GA</option>
+                <option value="SU">SU</option>
+            </select>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_pwd">Account state:</label>
+            <input style="display: table-cell;" type="checkbox" name="user_state" id="user_state"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="isPublic">Their phone:</label>
+            <input style="display: table-cell;" type="text" name="user_phone" id="user_phone"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_pwd">Their password:</label>
+            <input style="display: table-cell;" type="text" name="user_pwd" id="user_pwd"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="is_Public">Account is Public:</label>
+            <input style="display: table-cell;" type="checkbox" name="is_Public" id="is_Public"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="occupation">Their Occupation:</label>
+            <input style="display: table-cell;" type="text" name="occupation" id="occupation"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="workplace">Their Workplace:</label>
+            <input style="display: table-cell;" type="text" name="workplace" id="workplace"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="address">Their Address:</label>
+            <input style="display: table-cell;" type="text" name="address" id="address"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="postalCode">Their Postal Code:</label>
+            <input style="display: table-cell;" type="text" name="postalCode" id="postalCode"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="NIF">Their NIF:</label>
+            <input style="display: table-cell;" type="text" name="NIF" id="NIF"/>
+        </p>
+        <p style="display: table-row;">
+            <button type="button" onclick="submitForm()">Submit</button>
+            <input type="reset"/>
+        </p>
+
+    </form>
+    
+        <script>
+        function submitForm() {
+            var user = localStorage.getItem('username');
+            var otherUsername = document.getElementById('user_name').value;
+            var email = document.getElementById('user_email').value;
+            var profile = document.getElementById('user_profile').value;
+            var role = document.getElementById('user_role').value;
+            var state = document.getElementById('user_state').value;
+            var phone = document.getElementById('user_phone').value;
+            var password = document.getElementById('user_pwd').value;
+            var isPublic = document.getElementById('isPublic').value;
+            var occupation = document.getElementById('occupation').value;
+            var workplace = document.getElementById('workplace').value;
+            var address = document.getElementById('address').value;
+            var postalCode = document.getElementById('postalCode').value;
+            var NIF = document.getElementById('NIF').value;
+
+            // Verify that user input everything
+            if (otherUsername != null) {
+
+                // Body for the request to be sent/fetched
+                var requestData = {
+                    "userID" : user,
+                    "targetID" : otherUsername,
+                    "email" : email,
+                    "userName" : profile,
+                    "phoneNumber" : phone,
+                    "password" : password,
+                    "role" : role,
+                    "state" : state,
+                    "isPublic" : isPublic,
+                    "occupation" : occupation,
+                    "workplace" : workplace,
+                    "address" : address,
+                    "postalCode" : postalCode,
+                    "NIF" : NIF
+                };
+
+                fetch('../../rest/changeattributes/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Success");
+                        alert('Alterations successful');
+                        document.getElementById("alterationsForm").reset();     
+                        
+                    } else {
+                        if(response.status == 403){
+                            alert("You don't have a valid session. Please log in again");
+                            window.location.href = './loginscreen.html';
+                        }
+                        if(response.status == 400){
+                            alert("Missing or wrong parameter(s).");
+                        }
+                        if(response.status == 409){
+                            alert("Wrong user IDs, users not found.");
+                        }
+                        if(response.status == 401)
+                            alert("You do not have enough permissions to do these changes.");
+                    }
+                })                
+            } else {
+                alert('Please fill all mandatory fields');
+            }
+        }
+    </script>
+    
+</body>
+</html>

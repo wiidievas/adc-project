@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Role of another User</title>
+</head>
+<body></body>
+    <form action="../../rest/changerole" method="post" id="changeRoleForm"></form>
+    <p style="display: table-row;">
+        <label style="display: table-cell;" for="user_name">ID of the other user:</label>
+        <input style="display: table-column;" type="text" name="user_two" id="user_two" required/>
+    </p>
+    <p style="display: table-row;">
+        <label style="display: table-cell;" for="user_name">User's new Role:</label>
+        <input style="display: table-column;" type="text" name="user_role" id="user_role" required/>
+    </p>
+    <p>
+        <button type="button" onclick="submitForm()">Submit</button>
+        <input type="reset"/>
+    </p>
+
+    <footer>
+        <button type="button" onclick="goToOper()">Go Back</button>
+    </footer>
+
+    <script>
+        function submitForm() {
+            var username = localStorage.getItem('username');
+            console.log(username);
+            var user_two = document.getElementById('user_two').value;
+            var newRole = document.getElementById('user_role').value;
+
+            
+            if (user_two != null && newRole != null) {
+                
+                var requestData = {
+                    "usernameOne": username,
+                    "usernameTwo": user_two,
+                    "newRole": newRole
+                };
+
+                
+                fetch('../../rest/changerole/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        
+                        console.log("Success");
+                        localStorage.setItem("username", username);
+                        alert('Role changed Successfully.');
+                        document.getElementById("changeRoleForm").reset();     
+                        
+                    } else {
+                        console.log(response.status);
+                        if(response.status==400){
+                            alert('The user provided does not exist');
+                        } else if(response.status==409){
+                            alert('You are not authorized to make this change.');
+                        } else if(response.status==406){
+                            alert('The specified role does not exist in this database.');
+                        }else {
+                            alert("You don't have a valid session. Please log in again");
+                            window.location.href = './loginscreen.html';
+                        } 
+                    }
+                })                
+            } else {
+                // Fields are missing, prompt user to fill all fields
+                alert('Please fill all fields');
+            }
+        }
+    </script>
+
+    <script>
+        function goToOper(){
+            window.location.href = './useroperations.html';
+        }
+    </script>
+
+    </body></html>

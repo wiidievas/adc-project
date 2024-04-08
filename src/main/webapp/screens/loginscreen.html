@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="../../rest/login" method="post" id="loginForm" onsubmit="submitForm(this)">
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_name">User ID:</label>
+            <input style="display: table-column;" type="text" name="user_name" id="user_name" required/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_pwd">Password:</label>
+            <input style="display: table-cell;" type="password" name="user_pwd" id="user_pwd" required/>
+        </p>
+        <p>
+            <button type="button" onclick="submitForm()">Submit</button>
+            <input type="reset"/>
+        </p>
+
+    </form>
+    
+        <script>
+        function submitForm() {
+            var username = document.getElementById('user_name').value;
+            var password = document.getElementById('user_pwd').value;
+
+            // Perform client-side validation
+            if (username != null && password != null) {
+                // All fields are filled, make the AJAX call to submit the form
+                var requestData = {
+                    "username": username,
+                    "password": password
+                };
+
+                // Make AJAX POST request to your backend
+                fetch('../../rest/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        //return response.json();
+                        console.log("Success");
+                        localStorage.setItem("username", username);
+                        alert('Login successful');
+                        document.getElementById("loginForm").reset();     
+                        window.location.href = './useroperations.html?username=' + encodeURIComponent(username);
+                    } else {
+                        throw new Error('Failed to login');
+                        alert("Your account is not activated yet. Please wait for someone to activate your account.");
+                    }
+                })                
+            } else {
+                // Fields are missing, prompt user to fill all fields
+                alert('Please fill all fields');
+            }
+        }
+    </script>
+    
+</body>
+</html>

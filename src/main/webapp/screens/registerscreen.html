@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Enter Your Info</h1>
+    <form action="../../rest/register" method="post" id="registerForm" onsubmit="submitForm(this)">
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_name">User ID:</label>
+            <input style="display: table-column;" type="text" name="user_name" id="user_name" required/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_email">Email:</label>
+            <input style="display: table-column;" type="text" name="user_email" id="user_email" required/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_profile">Your Name:</label>
+            <input style="display: table-column;" type="text" name="user_profile" id="user_profile" required/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_phone">Phone Number:</label>
+            <input style="display: table-column;" type="text" name="user_phone" id="user_phone" required/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="user_pwd">Password:</label>
+            <input style="display: table-cell;" type="password" name="user_pwd" id="user_pwd" required/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="isPublic">Public Account:</label>
+            <input style="display: table-cell;" type="checkbox" name="isPublic" id="isPublic"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="occupation">Occupation:</label>
+            <input style="display: table-cell;" type="text" name="occupation" id="occupation" placeholder="Not Required"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="workplace">Workplace:</label>
+            <input style="display: table-cell;" type="text" name="workplace" id="workplace" placeholder="Not Required"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="address">Address:</label>
+            <input style="display: table-cell;" type="text" name="address" id="address" placeholder="Not Required"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="postalCode">Postal Code:</label>
+            <input style="display: table-cell;" type="text" name="postalCode" id="postalCode" placeholder="Not Required"/>
+        </p>
+        <p style="display: table-row;">
+            <label style="display: table-cell;" for="NIF">NIF:</label>
+            <input style="display: table-cell;" type="text" name="NIF" id="NIF" placeholder="Not Required"/>
+        </p>
+        <p style="display: table-row;">
+            <button type="button" onclick="submitForm()">Submit</button>
+            <input type="reset"/>
+        </p>
+
+    </form>
+    
+        <script>
+        function submitForm() {
+            var username = document.getElementById('user_name').value;
+            var email = document.getElementById('user_email').value;
+            var profile = document.getElementById('user_profile').value;
+            var phone = document.getElementById('user_phone').value;
+            var password = document.getElementById('user_pwd').value;
+            var isPublic = document.getElementById('isPublic').value;
+            var occupation = document.getElementById('occupation').value;
+            var workplace = document.getElementById('workplace').value;
+            var address = document.getElementById('address').value;
+            var postalCode = document.getElementById('postalCode').value;
+            var NIF = document.getElementById('NIF').value;
+
+            // Verify that user input everything
+            if (username != null && email != null && profile != null 
+            		&& phone != null && password != null) {
+
+                // Body for the request to be sent/fetched
+                var requestData = {
+                    "username": username,
+                    "email": email,
+                    "profile": profile,
+                    "phone": phone,
+                    "password": password,
+                    "isPublic": isPublic,
+                    "occupation": occupation,
+                    "workplace": workplace,
+                    "address": address,
+                    "postalCode": postalCode,
+                    "NIF": NIF
+                };
+
+                // Make request
+                fetch('../../rest/register/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        //return response.json();
+                        console.log("Success");
+                        alert('Registration successful');
+                        document.getElementById("registerForm").reset();     
+                        window.location.href = '../index.html';
+                    } else {
+                        alert ("Error Signing up. Please change your username.");
+                        throw new Error('Failed to register');
+                    }
+                })                
+            } else {
+                alert('Please fill all mandatory fields');
+            }
+        }
+    </script>
+    
+</body>
+</html>

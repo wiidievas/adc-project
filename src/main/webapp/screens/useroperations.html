@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Operations</title>
+</head>
+<body>
+    <p>Welcome user. These are your available operations.</p>
+
+    <p>Please bear in mind that results of these operations vary depending on your role on our database.</p>
+
+
+    <p>
+        <button type="button" onclick="goToChangePassword()">Change your own Password</button>
+    </p>
+    <p>
+        <button type="button" onclick="goToChangeRole()">Change an User's Role</button>
+    </p>
+    <p>        
+        <button type="button" onclick="goToChangeState()">Activate/Deactivate an user's Account</button>
+    </p>
+    <p>        
+        <button type="button" onclick="goToDeleteUser()">Delete an user's Account</button>
+    </p>
+    <p>
+        <td><button type="button" onclick="listToken()">List Session Token</button>
+    </p>
+    <p id=""></p>
+    <p>
+        <td><button type="button" onclick="listUsers()">List Users</button>
+    </p>
+    <p id='toPrint'></p>
+    <footer>
+        <td><button type="button" onclick="logout()">Log out</button>
+    </footer>
+    
+    <script>
+
+        function listToken(){
+            var username = localStorage.getItem('username');
+            var requestData = {
+                "username": username
+            };
+            fetch('../../rest/token/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+                
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to Print Token');
+                    alert("You don't have a valid session. Please log in again");
+                    window.location.href = './loginscreen.html';
+                }
+            })
+            .then(data => {                   
+                    const paragraph = document.createElement('p'); //new paragraph
+                    paragraph.textContent = userLog; // change text in paragraph to what we had on the userLog 
+                    // append paragraph of stuff (emails, usernames....) to our "invisible" paragraph
+                    document.getElementById('tokenPrint').appendChild(paragraph);
+                });
+            }
+    
+
+        function listUsers() {
+
+            var username = localStorage.getItem('username'); //should be username
+            console.log(username); //root
+
+            var requestData = {
+                "username": username
+            };
+
+            fetch('../../rest/listusers/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+                
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to List Users');
+                    alert("You don't have a valid session. Please log in again");
+                    window.location.href = './loginscreen.html';
+                }
+            })
+            .then(data => {
+                
+                data.forEach(userLog => {
+                   
+                    const paragraph = document.createElement('p'); //new paragraph
+                    paragraph.textContent = userLog; // change text in paragraph to what we had on the userLog 
+                    // append paragraph of stuff (emails, usernames....) to our "invisible" paragraph
+                    document.getElementById('toPrint').appendChild(paragraph);
+                });
+            })
+    }
+    </script>
+
+    <script>
+        function goToChangePassword(){
+            var username = localStorage.getItem('username');
+            localStorage.setItem('username', username);
+            window.location.href = 'changepassword.html';
+        }
+        function goToChangeRole(){
+        var username = localStorage.getItem('username');
+        localStorage.setItem('username', username);
+        window.location.href = 'changerole.html';
+    }
+    function goToChangeState(){
+        var username = localStorage.getItem('username');
+        localStorage.setItem('username', username);
+        window.location.href = 'changestate.html';
+    }
+    function goToDeleteUser(){
+        var username = localStorage.getItem('username');
+        localStorage.setItem('username', username);
+        window.location.href = 'deleteuser.html';
+    }
+    </script>
+
+    <script>
+        function logout() {
+
+            var username = localStorage.getItem('username'); //should be username
+            console.log(username); //root
+
+            var requestData = {
+                "username": username
+            };
+
+            fetch('../../rest/logout/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+                
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Success");
+                    alert('Logout successful');
+                    window.location.href = '../screens/loginscreen.html';
+                } else {
+                    throw new Error('Failed to Logout');
+                    alert("You don't have a valid session. Please log in again");
+                    window.location.href = './loginscreen.html';
+
+                }
+            })   
+    }
+    </script>
+
+</body>
+</html>
